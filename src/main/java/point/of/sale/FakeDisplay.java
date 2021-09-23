@@ -2,19 +2,20 @@ package point.of.sale;
 
 public class FakeDisplay implements Display {
 
+	String lastLine;
+	
 	public FakeDisplay() {
-		// TODO Auto-generated constructor stub
+		lastLine = "";
 	}
 
 	@Override
-	public void showLine(String barcode) {
-		// TODO Auto-generated method stub
+	public void showLine(String line) {
+		this.lastLine = line;
 
 	}
 
-	public Object getLastLine() {
-		// TODO Auto-generated method stub
-		return null;
+	public String getLastLine() {
+		return lastLine;
 	}
 
 }

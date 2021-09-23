@@ -7,7 +7,7 @@ public class ArtR56Display implements Display{
 		artR56 = new ArtR56();
 	}
 	
-	public void showLine(String barcode) {
-		artR56.showLine(barcode);
+	public void showLine(String line) {
+		artR56.showLine(line);
 	}
 }
