@@ -16,6 +16,9 @@ public class TestSale {
 		Sale sale = new Sale(fakeDisplay);
 		sale.scan("1A");
 		assertEquals("Milk, 3.99", fakeDisplay.getLastLine());
+		
+		//fail because a fake is a kludge and only stores last thing displayed
+		//assertEquals("1A", fakeDisplay.getLastLine());
 	}
 	
 	@Test
@@ -24,6 +27,7 @@ public class TestSale {
 		Sale sale = new Sale(display);
 		sale.scan("1A");
 		verify(display).showLine("Milk, 3.99");
+		verify(display).showLine("1A");
 	}
 
 }
