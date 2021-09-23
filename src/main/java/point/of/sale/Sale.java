@@ -10,12 +10,22 @@ public class Sale {
 		
 		//the display terminal is called ArtR56
 		display = new ArtR56Display();
+		init(display);
+		
+	}
+	
+	public Sale(Display display) {
+		init(display);
+	}
+	
+	private void init(Display display) {
+		
+		this.display = display;
 		
 		//Storage, add the items in the store
 		hashLookup = new HashStorage();
 		hashLookup.put("1A", "Milk, 3.99");
 		hashLookup.put("2A", "Bread, 4.99");
-		
 	}
 	
 	public void scan(String barcode) {

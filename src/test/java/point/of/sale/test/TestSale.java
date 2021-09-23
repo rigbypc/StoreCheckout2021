@@ -16,7 +16,7 @@ public class TestSale {
 	@Test
 	public void test() {
 		FakeDisplay fakeDisplay = new FakeDisplay();
-		Sale sale = new Sale();
+		Sale sale = new Sale(fakeDisplay);
 		sale.scan("1A");
 		assertEquals("Milk, 3.99", fakeDisplay.getLastLine());
 	}
