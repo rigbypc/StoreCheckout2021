@@ -15,9 +15,10 @@ public class TestSale {
 
 	@Test
 	public void test() {
+		FakeDisplay fakeDisplay = new FakeDisplay();
 		Sale sale = new Sale();
 		sale.scan("1A");
-		//assertEquals("Milk, 3.99", fakeDisplay.getLastLine());
+		assertEquals("Milk, 3.99", fakeDisplay.getLastLine());
 	}
 
 }
