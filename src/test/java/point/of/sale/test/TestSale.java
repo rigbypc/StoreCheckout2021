@@ -1,15 +1,15 @@
 package point.of.sale.test;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import point.of.sale.*;
 
 public class TestSale {
 
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 	}
 
@@ -18,7 +18,6 @@ public class TestSale {
 		Sale sale = new Sale();
 		sale.scan("1A");
 		//assertEquals("Milk, 3.99", fakeDisplay.getLastLine());
-		fail("Not yet implemented");
 	}
 
 }
