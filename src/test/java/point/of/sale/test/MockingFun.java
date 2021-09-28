@@ -1,5 +1,6 @@
 package point.of.sale.test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
 import java.util.Stack;
@@ -13,6 +14,11 @@ public class MockingFun {
 	public void testMock() {
 	
 		Stack<String> stack = mock(Stack.class);
+		stack.add("one");
+		stack.add("two");
+		verify(stack).add("one");
+		verify(stack).add("two");
+		assertEquals("two", stack.pop());
 	}
 	
 
