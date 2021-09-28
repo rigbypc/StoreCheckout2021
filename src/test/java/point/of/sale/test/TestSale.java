@@ -42,14 +42,15 @@ public class TestSale {
 		inOrder.verify(display).showLine("Milk, 3.99");
 	}
 	
-	//@Test
+	@Test
 	public void testMockStorage() {
 		Storage storage = mock(Storage.class);
 		Display display = mock(Display.class);
 		Sale sale = new Sale(display, storage);
+		when(storage.barcode("1A")).thenReturn("Milk, 3.99");
 		sale.scan("1A");
-		verify(display).showLine("Milk, 3.99");
 		verify(display).showLine("1A");
+		verify(display).showLine("Milk, 3.99");
 	}
 
 }
