@@ -40,5 +40,12 @@ public class TestSale {
 		inOrder.verify(display).showLine("1A");
 		inOrder.verify(display).showLine("Milk, 3.99");
 	}
+	
+	@Test
+	public void testMockStorage() {
+		Storage storage = mock(HashStorage.class);
+		Display display = mock(Display.class);
+		Sale sale = new Sale(display, storage);
+	}
 
 }

@@ -3,7 +3,7 @@ package point.of.sale;
 
 public class Sale {
 	
-	HashStorage hashLookup;
+	Storage storage;
 	Display display;
 	
 	public Sale () {
@@ -23,9 +23,9 @@ public class Sale {
 		this.display = display;
 		
 		//Storage, add the items in the store
-		hashLookup = new HashStorage();
-		hashLookup.put("1A", "Milk, 3.99");
-		hashLookup.put("2A", "Bread, 4.99");
+		storage = new HashStorage();
+		storage.put("1A", "Milk, 3.99");
+		storage.put("2A", "Bread, 4.99");
 	}
 	
 	public void scan(String barcode) {
@@ -33,7 +33,7 @@ public class Sale {
 		display.showLine(barcode);
 		
 		//lookup barcode in postgres and get item
-		String item = hashLookup.barcode(barcode);
+		String item = storage.barcode(barcode);
 		
 		//display the item
 		display.showLine(item);
