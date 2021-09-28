@@ -4,8 +4,16 @@ import static org.mockito.Mockito.*;
 
 import java.util.Stack;
 
+import org.junit.jupiter.api.Test;
+
 public class MockingFun {
 	
-	Stack<String> stack = mock(Stack.class);
+	
+	@Test
+	public void testMock() {
+	
+		Stack<String> stack = mock(Stack.class);
+	}
+	
 
 }
