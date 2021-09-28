@@ -43,7 +43,7 @@ public class TestSale {
 	
 	@Test
 	public void testMockStorage() {
-		Storage storage = mock(HashStorage.class);
+		Storage storage = mock(Storage.class);
 		Display display = mock(Display.class);
 		Sale sale = new Sale(display, storage);
 	}
