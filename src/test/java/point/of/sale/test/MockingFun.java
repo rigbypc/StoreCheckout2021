@@ -18,7 +18,9 @@ public class MockingFun {
 		stack.add("two");
 		verify(stack).add("one");
 		verify(stack).add("two");
+		when(stack.pop()).thenReturn("two");
 		assertEquals("two", stack.pop());
+		assertEquals("one", stack.pop());
 	}
 	
 
