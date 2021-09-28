@@ -14,8 +14,9 @@ public class TestSale {
 	@Test
 	public void testScanFake() {
 		FakeDisplay fakeDisplay = new FakeDisplay();
-		Sale sale = new Sale(fakeDisplay);
-		sale.scan("1A");
+		FakeStorage fakeStorage = new FakeStorage();
+		Sale sale = new Sale(fakeDisplay, fakeStorage);
+		sale.scan("XYZ");
 		assertEquals("Milk, 3.99", fakeDisplay.getLastLine());
 		
 		//fail because a fake is a kludge and only stores last thing displayed
@@ -41,11 +42,14 @@ public class TestSale {
 		inOrder.verify(display).showLine("Milk, 3.99");
 	}
 	
-	@Test
+	//@Test
 	public void testMockStorage() {
 		Storage storage = mock(Storage.class);
 		Display display = mock(Display.class);
 		Sale sale = new Sale(display, storage);
+		sale.scan("1A");
+		verify(display).showLine("Milk, 3.99");
+		verify(display).showLine("1A");
 	}
 
 }
