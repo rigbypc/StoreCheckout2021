@@ -1,4 +1,4 @@
-package point.of.sale.test;
+package mocking.fun;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
