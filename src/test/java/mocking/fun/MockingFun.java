@@ -11,7 +11,7 @@ import org.mockito.InOrder;
 public class MockingFun {
 	
 	
-	//@Test
+	@Test
 	public void testMock() {
 	
 		Stack<String> stack = mock(Stack.class);
@@ -37,7 +37,7 @@ public class MockingFun {
 		stack.add("two");
 		//fails because the mock/stub has priority over the actual object
 		//when(stack.pop()).thenReturn("one");
-		when(stack.size()).thenReturn(100);
+		//when(stack.size()).thenReturn(100);
 		assertEquals("two", stack.pop());
 		assertEquals("one", stack.pop());
 		//avoid spying as much as possible (last resort)
