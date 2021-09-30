@@ -6,6 +6,7 @@ import static org.mockito.Mockito.*;
 import java.util.Stack;
 
 import org.junit.jupiter.api.Test;
+import org.mockito.InOrder;
 
 public class MockingFun {
 	
@@ -16,11 +17,15 @@ public class MockingFun {
 		Stack<String> stack = mock(Stack.class);
 		stack.add("one");
 		stack.add("two");
-		verify(stack).add("one");
-		verify(stack).add("two");
-		when(stack.pop()).thenReturn("two");
+		InOrder inOrder = inOrder(stack);
+		inOrder.verify(stack).add("one");
+		inOrder.verify(stack).add("two");
+		when(stack.pop()).thenReturn("two","one",null);
+		when(stack.isEmpty()).thenReturn(true);
 		assertEquals("two", stack.pop());
 		assertEquals("one", stack.pop());
+		assertEquals(true, stack.isEmpty());
+		assertEquals(null, stack.pop());
 	}
 	
 
