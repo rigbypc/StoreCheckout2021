@@ -41,6 +41,8 @@ public class Sale {
 		this.storage = storage;
 		this.interac = new Interac(12);
 		
+		display.showLine(StoreInfo.getInstance().getName());
+		
 		
 	}
 	
@@ -65,6 +67,7 @@ public class Sale {
 	public void TestingOnlySupersedeInterac(Interac interac) {
 		this.interac = interac;
 	}
+	
 
 
 }

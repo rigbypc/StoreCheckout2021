@@ -6,6 +6,7 @@ import static org.mockito.Mockito.*;
 
 import java.util.ArrayList;
 
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InOrder;
@@ -14,7 +15,10 @@ import point.of.sale.*;
 
 public class TestSale {
 
+	
+	
 	@Test
+	@Order(2)
 	public void testSupersedeInterac() {
 		Storage storage = mock(Storage.class);
 		Display display = mock(Display.class);
@@ -26,8 +30,18 @@ public class TestSale {
 		when(storage.barcode("2A")).thenReturn("Milk, 3.99");
 		sale.scan("2A");
 		
+		verify(display).showLine("No Name");
+		
 		sale.completePurchase();
 		verify(interac).pay(any(ArrayList.class));
+	}
+	
+	@Test
+	@Order(1)
+	public void testSetName() {
+		StoreInfo storeInfo = StoreInfo.getInstance();
+		storeInfo.setName("Concordia Bookstore");
+		assertEquals("Concordia Bookstore", storeInfo.getName());
 	}
 	
 	@Test
