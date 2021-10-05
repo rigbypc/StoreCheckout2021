@@ -23,5 +23,10 @@ public class StoreInfo {
 	public void setName(String name) {
 		this.name = name;
 	}
+	
+	public static StoreInfo TestResetStoreInfo() {
+		instance = new StoreInfo();
+		return instance;
+	}
 
 }

@@ -6,13 +6,16 @@ import static org.mockito.Mockito.*;
 
 import java.util.ArrayList;
 
+import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InOrder;
 
 import point.of.sale.*;
 
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class TestSale {
 
 	
@@ -23,6 +26,7 @@ public class TestSale {
 		Storage storage = mock(Storage.class);
 		Display display = mock(Display.class);
 		Interac interac = mock(Interac.class);
+		//StoreInfo.TestResetStoreInfo();
 				
 		Sale sale = new Sale(display, storage);
 		sale.TestingOnlySupersedeInterac(interac);

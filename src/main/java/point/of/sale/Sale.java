@@ -68,6 +68,7 @@ public class Sale {
 		this.interac = interac;
 	}
 	
+	
 
 
 }
