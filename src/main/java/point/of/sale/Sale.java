@@ -61,6 +61,10 @@ public class Sale {
 	public void completePurchase() {
 		interac.pay(items);
 	}
+	
+	public void TestingOnlySupersedeInterac(Interac interac) {
+		this.interac = interac;
+	}
 
 
 }

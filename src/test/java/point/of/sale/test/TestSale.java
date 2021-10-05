@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import static org.mockito.Mockito.*;
 
+import java.util.ArrayList;
+
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InOrder;
@@ -12,6 +14,22 @@ import point.of.sale.*;
 
 public class TestSale {
 
+	@Test
+	public void testSupersedeInterac() {
+		Storage storage = mock(Storage.class);
+		Display display = mock(Display.class);
+		Interac interac = mock(Interac.class);
+				
+		Sale sale = new Sale(display, storage);
+		sale.TestingOnlySupersedeInterac(interac);
+		
+		when(storage.barcode("2A")).thenReturn("Milk, 3.99");
+		sale.scan("2A");
+		
+		sale.completePurchase();
+		verify(interac).pay(any(ArrayList.class));
+	}
+	
 	@Test
 	public void testScanFake() {
 		FakeDisplay fakeDisplay = new FakeDisplay();
