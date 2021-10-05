@@ -6,6 +6,7 @@ import static org.mockito.Mockito.*;
 
 import java.util.ArrayList;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -18,21 +19,30 @@ import point.of.sale.*;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class TestSale {
 
+	Storage storage;
+	Display display;
+	Interac interac;
 	
+	@BeforeEach 
+	public void setUp() {
+		storage = mock(Storage.class);
+		display = mock(Display.class);
+		interac = mock(Interac.class);
+		
+		StoreInfo.TestResetStoreInfo();
+		
+		when(storage.barcode("1A")).thenReturn("Milk, 3.99");
+	}
 	
 	@Test
 	@Order(2)
 	public void testSupersedeInterac() {
-		Storage storage = mock(Storage.class);
-		Display display = mock(Display.class);
-		Interac interac = mock(Interac.class);
-		//StoreInfo.TestResetStoreInfo();
+		
 				
 		Sale sale = new Sale(display, storage);
 		sale.TestingOnlySupersedeInterac(interac);
 		
-		when(storage.barcode("2A")).thenReturn("Milk, 3.99");
-		sale.scan("2A");
+		sale.scan("1A");
 		
 		verify(display).showLine("No Name");
 		
@@ -62,7 +72,6 @@ public class TestSale {
 	
 	@Test
 	public void testScanMock() {
-		Display display = mock(Display.class);
 		Sale sale = new Sale(display);
 		sale.scan("1A");
 		verify(display).showLine("Milk, 3.99");
@@ -71,7 +80,7 @@ public class TestSale {
 	
 	@Test
 	public void testScanMockOrder() {
-		Display display = mock(Display.class);
+	
 		Sale sale = new Sale(display);
 		sale.scan("1A");
 		InOrder inOrder = inOrder(display);
@@ -81,14 +90,11 @@ public class TestSale {
 	
 	@Test
 	public void testMockStorage() {
-		Storage storage = mock(Storage.class);
-		Display display = mock(Display.class);
 		ArgumentCaptor<String> barcodeCaptor = 
 				ArgumentCaptor.forClass(String.class);
 		
 		Sale sale = new Sale(display, storage);
-		when(storage.barcode("2A")).thenReturn("Milk, 3.99");
-		sale.scan("2A");
+		sale.scan("1A");
 		verify(storage).barcode(barcodeCaptor.capture());
 		verify(display).showLine(barcodeCaptor.getValue());
 		verify(display).showLine("Milk, 3.99");
