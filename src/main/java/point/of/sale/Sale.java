@@ -1,11 +1,14 @@
 package point.of.sale;
 
+import java.util.ArrayList;
 
 public class Sale {
 	
 	private Storage storage;
 	private Display display;
 	private Interac interac;
+	
+	ArrayList<String> items = new ArrayList<>();
 	
 	public Sale () {
 		
@@ -51,6 +54,13 @@ public class Sale {
 		//display the item
 		display.showLine(item);
 		
+		items.add(item);
+		
 	}
+	
+	public void completePurchase() {
+		interac.pay(items);
+	}
+
 
 }
