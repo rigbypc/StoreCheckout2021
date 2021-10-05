@@ -3,8 +3,9 @@ package point.of.sale;
 
 public class Sale {
 	
-	Storage storage;
-	Display display;
+	private Storage storage;
+	private Display display;
+	private Interac interac;
 	
 	public Sale () {
 		
@@ -35,6 +36,7 @@ public class Sale {
 		
 		this.display = display;
 		this.storage = storage;
+		this.interac = new Interac(12);
 		
 		
 	}
