@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Sale {
 	
 	private Storage storage;
-	private Display display;
+	private IDisplay display;
 	private Interac interac;
 	
 	ArrayList<String> items = new ArrayList<>();
@@ -13,7 +13,7 @@ public class Sale {
 	public Sale () {
 		
 		//the display terminal is called ArtR56
-		display = new ArtR56Display();
+		display = new ArtR56DisplayAdapter();
 		//Storage, add the items in the store
 		storage = new HashStorage();
 		storage.put("1A", "Milk, 3.99");
@@ -22,7 +22,7 @@ public class Sale {
 		
 	}
 	
-	public Sale(Display display) {
+	public Sale(IDisplay display) {
 		//Storage, add the items in the store
 		storage = new HashStorage();
 		storage.put("1A", "Milk, 3.99");
@@ -31,11 +31,11 @@ public class Sale {
 		init(display, storage);
 	}
 	
-	public Sale(Display display, Storage storage) {
+	public Sale(IDisplay display, Storage storage) {
 		init(display, storage);
 	}
 	
-	private void init(Display display, Storage storage) {
+	private void init(IDisplay display, Storage storage) {
 		
 		this.display = display;
 		this.storage = storage;

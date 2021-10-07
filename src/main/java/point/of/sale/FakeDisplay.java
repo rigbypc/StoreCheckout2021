@@ -1,6 +1,6 @@
 package point.of.sale;
 
-public class FakeDisplay implements Display {
+public class FakeDisplay implements IDisplay {
 
 	String lastLine;
 	

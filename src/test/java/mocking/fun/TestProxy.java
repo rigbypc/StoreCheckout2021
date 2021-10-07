@@ -8,7 +8,7 @@ import java.lang.reflect.Proxy;
 
 import org.junit.jupiter.api.*;
 
-import point.of.sale.Display;
+import point.of.sale.IDisplay;
 import point.of.sale.Sale;
 import point.of.sale.Storage;
 
@@ -16,18 +16,18 @@ public class TestProxy {
 
 	@Test
 	public void showMethods() {
-		Method[] methods = Display.class.getDeclaredMethods();
+		Method[] methods = IDisplay.class.getDeclaredMethods();
 		
 		for (Method method : methods) {
 			System.out.println(method);	
 		}
 		
 		MockInvocationHandler mockHandler = new MockInvocationHandler();
-		Display display = (Display) Proxy.newProxyInstance(
+		IDisplay display = (IDisplay) Proxy.newProxyInstance(
 				//class
-				Display.class.getClassLoader(), 
+				IDisplay.class.getClassLoader(), 
 				//methods
-				new Class[] {Display.class}, 
+				new Class[] {IDisplay.class}, 
 				mockHandler);
 		
 		display.showLine("1A");
@@ -44,11 +44,11 @@ public class TestProxy {
 		//we want to replace the display with our proxy
 		//Display display = mock(Display.class);
 		MockInvocationHandler mockHandler = new MockInvocationHandler();
-		Display display = (Display) Proxy.newProxyInstance(
+		IDisplay display = (IDisplay) Proxy.newProxyInstance(
 				//class
-				Display.class.getClassLoader(), 
+				IDisplay.class.getClassLoader(), 
 				//methods
-				new Class[] {Display.class}, 
+				new Class[] {IDisplay.class}, 
 				mockHandler);
 		
 		Sale sale = new Sale(display, storage);

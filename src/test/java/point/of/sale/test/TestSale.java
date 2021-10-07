@@ -20,13 +20,13 @@ import point.of.sale.*;
 public class TestSale {
 
 	Storage storage;
-	Display display;
+	IDisplay display;
 	Interac interac;
 	
 	@BeforeEach 
 	public void setUp() {
 		storage = mock(Storage.class);
-		display = mock(Display.class);
+		display = mock(IDisplay.class);
 		interac = mock(Interac.class);
 		
 		StoreInfo.TestResetStoreInfo();

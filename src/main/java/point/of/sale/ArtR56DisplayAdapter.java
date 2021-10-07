@@ -1,9 +1,9 @@
 package point.of.sale;
 
-public class ArtR56Display implements Display{
+public class ArtR56DisplayAdapter implements IDisplay{
 	ArtR56 artR56;
 	
-	public ArtR56Display() {
+	public ArtR56DisplayAdapter() {
 		artR56 = new ArtR56();
 	}
 	
