@@ -8,6 +8,8 @@ public class ConsoleSale {
 
 	public static void main(String[] args) throws IOException {
 		
+		
+		Sale sale = new Sale(new ConsoleDisplay());
 		 // Enter data using BufferReader
         BufferedReader reader = new BufferedReader(
             new InputStreamReader(System.in));
@@ -25,6 +27,8 @@ public class ConsoleSale {
 	        if (line.equals("Exit")) {
 	        	break;
 	        }
+	        
+	        sale.scan(line);
 	       
 		}
 
