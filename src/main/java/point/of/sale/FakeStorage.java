@@ -1,6 +1,6 @@
 package point.of.sale;
 
-public class FakeStorage implements Storage {
+public class FakeStorage implements IStorage {
 
 	public FakeStorage() {
 		// TODO Auto-generated constructor stub

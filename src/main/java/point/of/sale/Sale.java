@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Sale {
 	
-	private Storage storage;
+	private IStorage storage;
 	private IDisplay display;
 	private Interac interac;
 	
@@ -31,11 +31,11 @@ public class Sale {
 		init(display, storage);
 	}
 	
-	public Sale(IDisplay display, Storage storage) {
+	public Sale(IDisplay display, IStorage storage) {
 		init(display, storage);
 	}
 	
-	private void init(IDisplay display, Storage storage) {
+	private void init(IDisplay display, IStorage storage) {
 		
 		this.display = display;
 		this.storage = storage;

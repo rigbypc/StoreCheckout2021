@@ -2,7 +2,7 @@ package point.of.sale;
 
 import java.util.HashMap;
 
-public class HashStorage implements Storage {
+public class HashStorage implements IStorage {
 
 	HashMap<String, String> hashMap = new HashMap<>();
 	

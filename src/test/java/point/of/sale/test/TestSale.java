@@ -19,13 +19,13 @@ import point.of.sale.*;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class TestSale {
 
-	Storage storage;
+	IStorage storage;
 	IDisplay display;
 	Interac interac;
 	
 	@BeforeEach 
 	public void setUp() {
-		storage = mock(Storage.class);
+		storage = mock(IStorage.class);
 		display = mock(IDisplay.class);
 		interac = mock(Interac.class);
 		

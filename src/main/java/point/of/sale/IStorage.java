@@ -1,6 +1,6 @@
 package point.of.sale;
 
-public interface Storage {
+public interface IStorage {
 
 	void put(String barcode, String item);
 

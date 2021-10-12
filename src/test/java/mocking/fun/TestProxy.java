@@ -10,7 +10,7 @@ import org.junit.jupiter.api.*;
 
 import point.of.sale.IDisplay;
 import point.of.sale.Sale;
-import point.of.sale.Storage;
+import point.of.sale.IStorage;
 
 public class TestProxy {
 
@@ -39,7 +39,7 @@ public class TestProxy {
 	public void testProxy() {
 		
 		//do it using mockito
-		Storage storage = mock(Storage.class);
+		IStorage storage = mock(IStorage.class);
 		
 		//we want to replace the display with our proxy
 		//Display display = mock(Display.class);
