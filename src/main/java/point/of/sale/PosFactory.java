@@ -33,9 +33,19 @@ public class PosFactory {
 	}
 	
 	public IStorage getStorageAdapter() {
-		HashStorage storage = new HashStorage();
-		storage.put("1A", "Milk, 3.99");
-		storage.put("2A", "Eggs, 4.99");
+		IStorage storage;
+		
+		if (prop.getProperty("pos.storage").equals("hash")) {
+			
+			storage = new HashStorage();
+			
+		}
+		else {
+			storage = new ArrayStorage();
+		}
+		
+		storage.put("1", "Milk, 3.99");
+		storage.put("2", "Eggs, 4.99");
 		
 		return storage;
 	}
