@@ -11,7 +11,9 @@ public class ConsoleSale {
 		
 		Sale sale = 
 				new Sale(PosFactory.getInstance()
-						.getDisplayAdapter()
+							.getDisplayAdapter(),
+						 PosFactory.getInstance()
+						 	.getStorageAdapter()
 						);
 		 // Enter data using BufferReader
         BufferedReader reader = new BufferedReader(
