@@ -13,7 +13,7 @@ class Repeater {
 
 	private static int runs = 0;
 	
-	@RepeatedIfExceptionsTest(repeats = 2)
+	//@RepeatedIfExceptionsTest(repeats = 2)
     void reRunTest() {
 		if (runs <= 1) { 
 			runs ++;
@@ -22,4 +22,18 @@ class Repeater {
 		
 		assertTrue(true);
     }
+	
+	//Google 2 repeats strategy, this test needs to fail three times in a row to be considered a failure
+	//@RepeatedIfExceptionsTest(repeats = 2)
+    //@Test
+	void asynchWait25Test() {
+		assertTrue(Flaky.asyncWait25());
+	}
+	
+	//@RepeatedTest(100)
+	//figured out the distribution for reruns.
+	@RepeatedIfExceptionsTest(repeats = 4, minSuccess = 3)
+	void synchWait75Test() {
+		assertTrue(Flaky.asyncWait75());
+	}
 }
