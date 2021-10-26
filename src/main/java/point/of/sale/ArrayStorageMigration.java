@@ -2,8 +2,11 @@ package point.of.sale;
 
 public class ArrayStorageMigration extends HashStorage {
 
+	int size = 999;
+	String[] array;
+	
 	public ArrayStorageMigration() {
-		// TODO Auto-generated constructor stub
+		array = new String[size];
 	}
 
 	@Override
@@ -16,6 +19,13 @@ public class ArrayStorageMigration extends HashStorage {
 	public String barcode(String barcode) {
 		// TODO Auto-generated method stub
 		return super.barcode(barcode);
+	}
+	
+	public void forklift() {
+		//copy over all the data that is in the hash
+		for (String barcode : hashMap.keySet()) {
+			array[Integer.parseInt(barcode)] = hashMap.get(barcode);
+		}
 	}
 
 }
