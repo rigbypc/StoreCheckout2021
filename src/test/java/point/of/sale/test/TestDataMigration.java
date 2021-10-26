@@ -23,6 +23,12 @@ class TestDataMigration {
 		
 		//Consistency Checking (includes incremental replication)
 
+		assertEquals(0, storage.checkConsistency());
+		
+		storage.put("3", "aklsfjselkhfouhwsef, 4.99");
+		assertEquals(1, storage.checkConsistency());
+		assertEquals(0, storage.checkConsistency());
+		
 		//Shadow writes (writes to old and new datastore)
 
 		//Shadow reads (checks that old and new datastores return the same value
