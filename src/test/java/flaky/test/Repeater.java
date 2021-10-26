@@ -1,4 +1,4 @@
-package point.of.sale.test;
+package flaky.test;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.AfterAll;

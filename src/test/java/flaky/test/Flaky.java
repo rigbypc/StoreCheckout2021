@@ -1,4 +1,4 @@
-package point.of.sale.test;
+package flaky.test;
 
 import java.util.concurrent.ThreadLocalRandom;
 
