@@ -9,9 +9,14 @@ public class ArrayStorageMigration extends HashStorage {
 		array = new String[size];
 	}
 
+	public void testingOnlyHashPut(String barcode, String item) {
+		//write to the hash only
+		super.put(barcode, item);
+	}
+	
 	@Override
 	public void put(String barcode, String item) {
-		//write to the has
+		//write to the hash
 		super.put(barcode, item);
 		
 		//async write to new array datastore 
