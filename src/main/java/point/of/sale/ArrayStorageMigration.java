@@ -11,8 +11,11 @@ public class ArrayStorageMigration extends HashStorage {
 
 	@Override
 	public void put(String barcode, String item) {
-		// TODO Auto-generated method stub
+		//write to the has
 		super.put(barcode, item);
+		
+		//async write to new array datastore 
+		array[Integer.parseInt(barcode)] = item;
 	}
 
 	@Override
