@@ -2,6 +2,7 @@ package point.of.sale;
 
 public class ArrayStorageMigration extends HashStorage {
 
+	int readInconsistencies = 0;
 	int size = 999;
 	String[] array;
 	
@@ -25,8 +26,29 @@ public class ArrayStorageMigration extends HashStorage {
 
 	@Override
 	public String barcode(String barcode) {
-		// TODO Auto-generated method stub
-		return super.barcode(barcode);
+		String expected = super.barcode(barcode);
+		
+		//asyc reading and checking from the array (low priority)
+		String actual = array[Integer.parseInt(barcode)];
+		
+		if (! expected.equals(actual)) {
+			
+			array[Integer.parseInt(barcode)] = expected;
+			
+			violation(barcode, expected, actual);
+			
+			readInconsistencies ++;
+		}
+		
+		return expected;
+	}
+	
+	public void resetReadInconsistencies() {
+		readInconsistencies = 0;
+	}
+	
+	public int getReadInconsistencies() {
+		return readInconsistencies;
 	}
 	
 	public void forklift() {

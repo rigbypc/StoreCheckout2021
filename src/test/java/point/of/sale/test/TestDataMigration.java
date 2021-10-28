@@ -35,6 +35,17 @@ class TestDataMigration {
 		assertEquals(0, storage.checkConsistency());
 		
 		//Shadow reads (checks that old and new datastores return the same value
+		storage.testingOnlyHashPut("2", "Vodka, 40.00");
+		storage.barcode("2");
+		assertEquals(1, storage.getReadInconsistencies());
+		storage.resetReadInconsistencies();
+		assertEquals(0, storage.checkConsistency());
+		
+		//don't change anything, shadow read should work fine
+		storage.barcode("1");
+		assertEquals(0, storage.getReadInconsistencies());
+		assertEquals(0, storage.checkConsistency());
+		
 
 		//Read and write from new datastore (get rid of old datastore)
 
