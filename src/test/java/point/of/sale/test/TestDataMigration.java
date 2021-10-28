@@ -9,7 +9,7 @@ import point.of.sale.*;
 
 class TestDataMigration {
 
-	@Test
+	//@Test
 	void test() {
 		IDisplay display = mock(IDisplay.class);
 		
@@ -55,6 +55,23 @@ class TestDataMigration {
 		sale.scan("1");
 		
 		verify(display).showLine("Milk, 3.99");
+	}
+	
+	@Test
+	public void finalMigrationTest() {
+		IDisplay display = mock(IDisplay.class);
+		IStorage storage = new ArrayStorageMigration();
+		
+		storage.put("1", "Hello World");
+		
+		Sale sale = new Sale(display, storage);
+		
+		sale.scan("1");
+		
+		verify(display).showLine("1");
+		verify(display).showLine("Hello World");
+		
+		
 	}
 
 }

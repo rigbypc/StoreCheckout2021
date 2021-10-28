@@ -40,7 +40,8 @@ public class ArrayStorageMigration extends HashStorage {
 			readInconsistencies ++;
 		}
 		
-		return expected;
+		//return expected; //the hash
+		return actual; //the array or new datastore
 	}
 	
 	public void resetReadInconsistencies() {

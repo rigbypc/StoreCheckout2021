@@ -17,7 +17,7 @@ public class FuzzTester {
 	
 			IDisplay display = mock(IDisplay.class); 
 			
-			ArrayStorage storage =  new ArrayStorage();
+			ArrayStorageMigration storage =  new ArrayStorageMigration();
 			storage.put("1", "Milk, 3.99");
 			storage.put("2", "Beer, 9.99");
 			storage.put("3", "Bread, 10.99");
