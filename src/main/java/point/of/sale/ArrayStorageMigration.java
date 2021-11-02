@@ -5,6 +5,7 @@ public class ArrayStorageMigration extends HashStorage {
 	int readInconsistencies = 0;
 	int size = 999;
 	String[] array;
+	private Object itemCheck;
 	
 	public ArrayStorageMigration() {
 		array = new String[size];
@@ -88,5 +89,33 @@ public class ArrayStorageMigration extends HashStorage {
 						+ "\n\t actual = " + actual);
 		
 	}
+
+	public void updateConsistencyCheck() {
+		itemCheck = calculateConsistency();
+		
+	}
+
+	private String calculateConsistency() {
+		String items = "";
+		
+		for (int i = 0; i < array.length; i++) {
+			if (array[i] != null) {
+				items += Integer.toBinaryString(i) + array[i] + " ";
+			}
+		}
+		
+		return items;
+	}
+	
+	public boolean checkHashConsistency() {
+		String actual = calculateConsistency();
+		
+		System.out.println("expected = " + itemCheck + "vs " + "actual = " + actual);
+		
+		return itemCheck.equals(actual);
+	}
+	
+
+	
 
 }
