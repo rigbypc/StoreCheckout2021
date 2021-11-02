@@ -1,5 +1,7 @@
 package point.of.sale;
 
+import org.apache.commons.codec.digest.DigestUtils;
+
 public class ArrayStorageMigration extends HashStorage {
 
 	int readInconsistencies = 0;
@@ -104,15 +106,19 @@ public class ArrayStorageMigration extends HashStorage {
 			}
 		}
 		
-		return items;
+		return hashValue(items);
 	}
 	
 	public boolean checkHashConsistency() {
 		String actual = calculateConsistency();
 		
-		System.out.println("expected = " + itemCheck + "vs " + "actual = " + actual);
+		System.out.println("expected = " + itemCheck + " vs " + "actual = " + actual);
 		
 		return itemCheck.equals(actual);
+	}
+	
+	private String hashValue(String value) {
+		return DigestUtils.sha1Hex(value).toUpperCase();
 	}
 	
 
