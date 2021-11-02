@@ -102,7 +102,7 @@ public class ArrayStorageMigration extends HashStorage {
 		
 		for (int i = 0; i < array.length; i++) {
 			if (array[i] != null) {
-				items += hashValue(Integer.toBinaryString(i) + array[i]) + " ";
+				items = hashValue(items + Integer.toBinaryString(i) + array[i]);
 			}
 		}
 		
