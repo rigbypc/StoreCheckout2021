@@ -64,7 +64,12 @@ class TestDataMigration {
 	}
 	
 	@Test
-	public void finalMigrationTest() {
+	public void finalMigrationToArray() {
+		
+		StorageToggles.isHashEnabled = false;
+		StorageToggles.isArrayEnabled = true;
+		StorageToggles.isUnderTest = false;
+		
 		IDisplay display = mock(IDisplay.class);
 		IStorage storage = new ArrayStorageMigration();
 		
