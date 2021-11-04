@@ -9,8 +9,14 @@ import point.of.sale.*;
 
 class TestDataMigration {
 
-	//@Test
-	void test() {
+	@Test
+	void testDataMigration() {
+		
+		StorageToggles.isHashEnabled = true;
+		StorageToggles.isArrayEnabled = true;
+		StorageToggles.isUnderTest = true;
+		
+		
 		IDisplay display = mock(IDisplay.class);
 		
 		ArrayStorageMigration storage = new ArrayStorageMigration();

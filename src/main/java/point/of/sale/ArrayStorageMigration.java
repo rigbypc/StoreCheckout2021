@@ -10,78 +10,115 @@ public class ArrayStorageMigration extends HashStorage {
 	private Object itemCheck;
 	
 	public ArrayStorageMigration() {
-		array = new String[size];
+		if (StorageToggles.isArrayEnabled) {
+			array = new String[size];
+		}
 	}
 
 	public void testingOnlyHashPut(String barcode, String item) {
-		//write to the hash only
-		super.put(barcode, item);
+		
+		if (StorageToggles.isHashEnabled && StorageToggles.isUnderTest) { 
+			//write to the hash only
+			super.put(barcode, item);
+		}
 	}
 	
 	@Override
 	public void put(String barcode, String item) {
-		//write to the hash
-		super.put(barcode, item);
 		
-		//async write to new array datastore 
-		array[Integer.parseInt(barcode)] = item;
+		if (StorageToggles.isHashEnabled) {
+			//write to the hash
+			super.put(barcode, item);
+		}
+		
+		if (StorageToggles.isArrayEnabled) {
+			//async write to new array datastore 
+			array[Integer.parseInt(barcode)] = item;
+		}
 	}
 
 	@Override
 	public String barcode(String barcode) {
-		String expected = super.barcode(barcode);
 		
-		//asyc reading and checking from the array (low priority)
-		String actual = array[Integer.parseInt(barcode)];
-		
-		if (! expected.equals(actual)) {
+		if (StorageToggles.isArrayEnabled && StorageToggles.isHashEnabled) {
+			String expected = super.barcode(barcode);
 			
-			array[Integer.parseInt(barcode)] = expected;
+			//asyc reading and checking from the array (low priority)
+			String actual = array[Integer.parseInt(barcode)];
 			
-			violation(barcode, expected, actual);
+			if (! expected.equals(actual)) {
+				
+				array[Integer.parseInt(barcode)] = expected;
+				
+				violation(barcode, expected, actual);
+				
+				readInconsistencies ++;
+			}
 			
-			readInconsistencies ++;
 		}
 		
-		//return expected; //the hash
-		return actual; //the array or new datastore
+		if (StorageToggles.isHashEnabled) {
+			return super.barcode(barcode);
+		}
+		
+		if (StorageToggles.isArrayEnabled) {
+			return array[Integer.parseInt(barcode)];
+		}
+		
+		return null;
 	}
 	
 	public void resetReadInconsistencies() {
-		readInconsistencies = 0;
+		if (StorageToggles.isArrayEnabled && StorageToggles.isHashEnabled) {
+			readInconsistencies = 0;
+		}
 	}
 	
 	public int getReadInconsistencies() {
-		return readInconsistencies;
+		
+		if (StorageToggles.isArrayEnabled && StorageToggles.isHashEnabled) {
+			return readInconsistencies;
+		}
+		
+		return -1;
 	}
 	
 	public void forklift() {
-		//copy over all the data that is in the hash
-		for (String barcode : hashMap.keySet()) {
-			array[Integer.parseInt(barcode)] = hashMap.get(barcode);
+		
+		if (StorageToggles.isArrayEnabled && StorageToggles.isHashEnabled) {
+			//copy over all the data that is in the hash
+			for (String barcode : hashMap.keySet()) {
+				array[Integer.parseInt(barcode)] = hashMap.get(barcode);
+			}
 		}
 	}
 	
 	public int checkConsistency() {
-		int inconsistency = 0;
 		
-		for (String barcode : hashMap.keySet()) {
-			String expected = hashMap.get(barcode);
-			String actual = array[Integer.parseInt(barcode)];
+		if (StorageToggles.isArrayEnabled && StorageToggles.isHashEnabled) {
+		
+			int inconsistency = 0;
 			
-			if (! expected.equals(actual)) {
-				//record the inconsistency
-				inconsistency ++;
-				//log it
-				violation(barcode, expected, actual);
+			for (String barcode : hashMap.keySet()) {
+				String expected = hashMap.get(barcode);
+				String actual = array[Integer.parseInt(barcode)];
 				
-				//correct it in the new datastore
-				array[Integer.parseInt(barcode)] = 
-						hashMap.get(barcode);
+				if (! expected.equals(actual)) {
+					//record the inconsistency
+					inconsistency ++;
+					//log it
+					violation(barcode, expected, actual);
+					
+					//correct it in the new datastore
+					array[Integer.parseInt(barcode)] = 
+							hashMap.get(barcode);
+				}
 			}
+			
+			return inconsistency;
 		}
 		
-		return inconsistency;
+		return -1;
 	}
 
 	private void violation(String barcode, String expected, String actual) {
