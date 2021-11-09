@@ -1,6 +1,8 @@
 package point.of.sale;
 
 import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class ArrayStorageMigration extends HashStorage {
 
@@ -9,9 +11,12 @@ public class ArrayStorageMigration extends HashStorage {
 	String[] array;
 	private Object itemCheck;
 	
+	private static Logger logger = LogManager.getLogger();
+	
 	public ArrayStorageMigration() {
 		if (StorageToggles.isArrayEnabled) {
 			array = new String[size];
+			logger.trace("Creating storage array of size " + size);
 		}
 	}
 
@@ -20,6 +25,7 @@ public class ArrayStorageMigration extends HashStorage {
 		if (StorageToggles.isHashEnabled && StorageToggles.isUnderTest) { 
 			//write to the hash only
 			super.put(barcode, item);
+			logger.info("Testing only method");
 		}
 	}
 	
@@ -52,6 +58,7 @@ public class ArrayStorageMigration extends HashStorage {
 				
 				violation(barcode, expected, actual);
 				
+				logger.warn("Read inconsistency");
 				readInconsistencies ++;
 			}
 			
@@ -90,6 +97,7 @@ public class ArrayStorageMigration extends HashStorage {
 			for (String barcode : hashMap.keySet()) {
 				array[Integer.parseInt(barcode)] = hashMap.get(barcode);
 			}
+			logger.trace("Forklift complete");
 		}
 	}
 	
@@ -106,6 +114,9 @@ public class ArrayStorageMigration extends HashStorage {
 				if (! expected.equals(actual)) {
 					//record the inconsistency
 					inconsistency ++;
+					
+					logger.warn("Data inconsistency");
+					
 					//log it
 					violation(barcode, expected, actual);
 					
@@ -122,7 +133,7 @@ public class ArrayStorageMigration extends HashStorage {
 	}
 
 	private void violation(String barcode, String expected, String actual) {
-		System.out.println("Consistency Violation!\n" +
+		logger.info("Consistency Violation!\n" +
 						"barcode = " + barcode
 						+ "\n\t expected = " + expected
 						+ "\n\t actual = " + actual);
