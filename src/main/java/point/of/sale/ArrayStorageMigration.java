@@ -11,7 +11,7 @@ public class ArrayStorageMigration extends HashStorage {
 	String[] array;
 	private Object itemCheck;
 	
-	private static Logger logger = LogManager.getLogger();
+	private static Logger logger = LogManager.getLogger("migration");
 	
 	public ArrayStorageMigration() {
 		if (StorageToggles.isArrayEnabled) {

@@ -8,11 +8,20 @@
 			</PatternLayout>
 		</Console>
 
+		<File name="MigrationFile" fileName="logs/Migration.log">
+			<PatternLayout>
+				<Pattern>%d %p %c [%t] %m%n</Pattern>
+			</PatternLayout>
+		</File>
+
 	</Appenders>
 
 	<Loggers>
-		<Root level="warn">
+		<Root level="info">
 			<AppenderRef ref="STDIO" />
 		</Root>
+		<Logger name="migration" level="warn" additivity = "false">
+			<AppenderRef ref="MigrationFile" />
+		</Logger>
 	</Loggers>
 </Configuration> 
