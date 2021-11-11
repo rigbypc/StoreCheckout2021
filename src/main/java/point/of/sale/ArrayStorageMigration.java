@@ -11,12 +11,21 @@ public class ArrayStorageMigration extends HashStorage {
 	String[] array;
 	private Object itemCheck;
 	
-	private static Logger logger = LogManager.getLogger("migration");
+	private static Logger logger = LogManager.getLogger();
 	
 	public ArrayStorageMigration() {
 		if (StorageToggles.isArrayEnabled) {
 			array = new String[size];
 			logger.trace("Creating storage array of size " + size);
+			logger.info("Array is Enabled");
+		}
+		
+		if (StorageToggles.isHashEnabled) {
+			logger.info("Hash is Enabled");
+		}
+		
+		if (StorageToggles.isUnderTest) {
+			logger.info("System is under test");
 		}
 	}
 
@@ -32,6 +41,8 @@ public class ArrayStorageMigration extends HashStorage {
 	@Override
 	public void put(String barcode, String item) {
 		
+		logger.info("Write");
+		
 		if (StorageToggles.isHashEnabled) {
 			//write to the hash
 			super.put(barcode, item);
@@ -46,6 +57,8 @@ public class ArrayStorageMigration extends HashStorage {
 	@Override
 	public String barcode(String barcode) {
 		
+		logger.info("Read");
+		
 		if (StorageToggles.isArrayEnabled && StorageToggles.isHashEnabled) {
 			String expected = super.barcode(barcode);
 			
@@ -58,7 +71,7 @@ public class ArrayStorageMigration extends HashStorage {
 				
 				violation(barcode, expected, actual);
 				
-				logger.warn("Read inconsistency");
+				logger.warn("Read Inconsistency");
 				readInconsistencies ++;
 			}
 			
@@ -115,7 +128,7 @@ public class ArrayStorageMigration extends HashStorage {
 					//record the inconsistency
 					inconsistency ++;
 					
-					logger.warn("Data inconsistency");
+					logger.warn("Write Inconsistency");
 					
 					//log it
 					violation(barcode, expected, actual);
@@ -133,7 +146,7 @@ public class ArrayStorageMigration extends HashStorage {
 	}
 
 	private void violation(String barcode, String expected, String actual) {
-		logger.info("Consistency Violation!\n" +
+		logger.debug("Consistency Violation!\n" +
 						"barcode = " + barcode
 						+ "\n\t expected = " + expected
 						+ "\n\t actual = " + actual);
