@@ -3,6 +3,8 @@ package point.of.sale.test;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -63,8 +65,21 @@ class TestDiscountItems {
 			StorageToggles.isDiscountAllItems = rnd.getDiscount(30);
 			
 			Sale sale = new Sale(display, storage);
-			sale.scan("2");
+			
+			if (StorageToggles.isDiscountAllItems == true) {
+				buyItems(sale, ThreadLocalRandom.current().nextInt(1, 11));
+			}
+			else {
+				buyItems(sale, ThreadLocalRandom.current().nextInt(1, 3));	
+			}
+			
 			sale.completePurchase();
+		}
+	}
+	
+	private void buyItems(Sale sale, int numToBuy) {
+		for (int i = 0; i < numToBuy; i++) {
+			sale.scan("2");
 		}
 	}
 
