@@ -2,11 +2,16 @@ package point.of.sale;
 
 import java.util.ArrayList;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 public class Sale {
 	
 	private IStorage storage;
 	private IDisplay display;
 	private Interac interac;
+	
+	private static Logger analytics = LogManager.getLogger("Analytics");
 	
 	ArrayList<String> items = new ArrayList<>();
 	
@@ -61,6 +66,17 @@ public class Sale {
 	}
 	
 	public void completePurchase() {
+		
+		if (StorageToggles.isDiscountAllItems == true) {
+			analytics.info("Discount applied, " + items.size());
+			//todo: actually apply the discount
+			
+			display.showLine("Discount applied");
+		}
+		else {
+			analytics.info("No Discount, " + items.size());
+		}
+		
 		interac.pay(items);
 	}
 	
