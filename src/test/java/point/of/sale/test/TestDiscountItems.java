@@ -24,7 +24,7 @@ class TestDiscountItems {
 			
 	}
 	
-	@Test
+	//@Test
 	void testRollbackDiscount() {
 		
 		//feature is dark, nobody can get to it
@@ -50,6 +50,22 @@ class TestDiscountItems {
 		verify(display, times(1)).showLine("Discount applied");
 		
 		
+	}
+	
+	@Test
+	void testRandomDiscount() {
+		AssignRandomDiscount rnd = new AssignRandomDiscount();
+		
+		int interations = 10;
+		
+		for (int i = 0; i < interations; i++) {
+			//randomly assign a proportion of users to get a discount
+			StorageToggles.isDiscountAllItems = rnd.getDiscount(30);
+			
+			Sale sale = new Sale(display, storage);
+			sale.scan("2");
+			sale.completePurchase();
+		}
 	}
 
 }
