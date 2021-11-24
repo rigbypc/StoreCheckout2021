@@ -26,7 +26,7 @@ class TestDiscountItems {
 			
 	}
 	
-	//@Test
+	@Test
 	void testRollbackDiscount() {
 		
 		//feature is dark, nobody can get to it
@@ -55,10 +55,10 @@ class TestDiscountItems {
 	}
 	
 	@Test
-	void testRandomDiscount() {
+	void testRandomDiscountSuccess() {
 		AssignRandomDiscount rnd = new AssignRandomDiscount();
 		
-		int interations = 10;
+		int interations = 1000;
 		
 		for (int i = 0; i < interations; i++) {
 			//randomly assign a proportion of users to get a discount
@@ -66,16 +66,18 @@ class TestDiscountItems {
 			
 			Sale sale = new Sale(display, storage);
 			
+			//buy more items when discounted
 			if (StorageToggles.isDiscountAllItems == true) {
-				buyItems(sale, ThreadLocalRandom.current().nextInt(1, 11));
+				buyItems(sale, ThreadLocalRandom.current().nextInt(1, 101));
 			}
 			else {
-				buyItems(sale, ThreadLocalRandom.current().nextInt(1, 3));	
+				buyItems(sale, ThreadLocalRandom.current().nextInt(1, 31));	
 			}
 			
 			sale.completePurchase();
 		}
 	}
+	
 	
 	private void buyItems(Sale sale, int numToBuy) {
 		for (int i = 0; i < numToBuy; i++) {
