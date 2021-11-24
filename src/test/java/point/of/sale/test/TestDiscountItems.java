@@ -55,7 +55,7 @@ class TestDiscountItems {
 	}
 	
 	@Test
-	void testRandomDiscountSuccess() {
+	void testRandomDiscount() {
 		AssignRandomDiscount rnd = new AssignRandomDiscount();
 		
 		int interations = 1000;
@@ -66,8 +66,8 @@ class TestDiscountItems {
 			
 			Sale sale = new Sale(display, storage);
 			
-			//buy more items when discounted
-			if (StorageToggles.isDiscountAllItems == true) {
+			//buy less items when discounted (failure of A/B test)
+			if (StorageToggles.isDiscountAllItems == false) {
 				buyItems(sale, ThreadLocalRandom.current().nextInt(1, 101));
 			}
 			else {
